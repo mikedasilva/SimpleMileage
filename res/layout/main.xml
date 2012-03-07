@@ -14,6 +14,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distance_label"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/text_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
         </TableRow>
 
         <TableRow
@@ -43,8 +57,11 @@
 
             <Button
                 android:id="@+id/button_startTracking"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:enabled="true"
                 android:text="@string/start_label" />
 
         </TableRow>
@@ -56,10 +73,12 @@
 
             <Button
                 android:id="@+id/button_stopTracking"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/stop_label" 
-                android:enabled="false"/>
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:text="@string/stop_label" />
 
         </TableRow>
     </TableLayout>

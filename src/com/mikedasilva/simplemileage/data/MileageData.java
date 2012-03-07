@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import com.mikedasilva.simplemileage.model.MileageRecord;
+
 /**
  * Keep track of the mileage records.
  * 
@@ -24,7 +26,7 @@ public class MileageData extends SQLiteOpenHelper {
 	public static final String DISTANCE = "distance";
 	public static final String UNIT = "unit";
 	public static final String DATE = "date";
-	public static final String STATE = "state"; // for future feature
+	//public static final String STATE = "state"; // for future feature
 	
 
 	/**
@@ -41,9 +43,9 @@ public class MileageData extends SQLiteOpenHelper {
 		String sql = "CREATE TABLE "+TABLE_NAME + " (" 
 		+ _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
 		+ UNIT + " TEXT NOT NULL, "
-		+ DISTANCE + " INTEGER"
-		+ DATE + " DATE NOT NULL, "
-		+ STATE + " TEXT NULL, "
+		+ DISTANCE + " INTEGER NOT NULL, "
+		+ DATE + " INTEGER NOT NULL "
+		//+ STATE + " TEXT NULL, "
 		+ ");";
 		
 		// execute the sql
@@ -52,26 +54,26 @@ public class MileageData extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO handle upgrading the DB
-
+		db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
+		onCreate(db);
 	}
 	
 	/**
 	 * Insert a record into the DB
 	 * 
-	 * @param distance
-	 * @param date
-	 * @param unit
+	 * @param mileageRecord
 	 */
-	public void insert(int distance, String date, String unit) {
+	public void insert(MileageRecord mileageRecord) {
+		
 		SQLiteDatabase db = getWritableDatabase();
 		
 		// gather the values needed
 		ContentValues values = new ContentValues();
-		values.put(UNIT, unit);
-		values.put(DISTANCE, distance);
-		values.put(DATE, date);
+		values.put(UNIT, mileageRecord.getUnit());
+		values.put(DISTANCE, mileageRecord.getDistance());
+		values.put(DATE, mileageRecord.getDate().getTime());
 		
 		// do the insert
 		db.insertOrThrow(TABLE_NAME, null, values);
