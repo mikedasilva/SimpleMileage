@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, SimpleMileageActivity!</string>
+    <string name="app_name">SimpleMileage</string>
+    <string name="unit_selection_label">Unit:</string>
+    <string name="start_label">Start Tracking</string>
+    <string name="pause_label">Pause Tracking</string>
+    <string name="resume_label">Resume Tracking</string>
+    <string name="stop_label">Stop Tracking</string>
+    <string-array name="unit_options">
+        <item >KM</item>
+        <item >Mile</item>
+    </string-array>
+
+</resources>
