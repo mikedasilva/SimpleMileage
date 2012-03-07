@@ -5,14 +5,19 @@ import java.util.Date;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import com.mikedasilva.simplemileage.data.MileageData;
 import com.mikedasilva.simplemileage.model.MileageRecord;
 
-public class SimpleMileageActivity extends Activity implements OnClickListener {
+/**
+ * Main activity for the app
+ * 
+ * @author mike
+ *
+ */
+public class SimpleMileageActivity extends Activity {
 	
 	// widgets used for this activity
 	protected Button startTracking;
@@ -41,46 +46,42 @@ public class SimpleMileageActivity extends Activity implements OnClickListener {
 		stopTracking = (Button)findViewById(R.id.button_stopTracking);
 		unitValue = (Spinner)findViewById(R.id.spinner_Unit);
 		
-		// add a listener on the buttons
-		startTracking.setOnClickListener(this);
-		stopTracking.setOnClickListener(this);
+		// add a listeners on the buttons
+		startTracking.setOnClickListener(new View.OnClickListener() {
+			
+			// clicked on start/resume/pause
+			public void onClick(View v) {
+				// verify if it's a new track, pause, or resume
+				if(currentMileageRecord != null) {
+					if(tracking) {
+						// pause was pressed
+						pauseTracking();
+					} else {
+						// resume was pressed
+						resumeTracking();
+					}
+				} else {
+					// start was pressed
+					startTracking();
+				}
+				
+			}
+		});
+		stopTracking.setOnClickListener(new View.OnClickListener() {
+			
+			// click on stop
+			public void onClick(View v) {
+				// stop was pressed
+				stopTracking();
+				
+			}
+		});
 		
 		// data
 		mileageData = new MileageData(this);
 		
 	}
 
-	/**
-	 * Handle the click events
-	 * 
-	 */
-	public void onClick(View view) {
-		
-		// check where the click came from
-		if(view == startTracking) {
-			
-			// verify if it's a new track, pause, or resume
-			if(currentMileageRecord != null) {
-				if(tracking) {
-					// pause was pressed
-					pauseTracking();
-				} else {
-					// resume was pressed
-					resumeTracking();
-				}
-			} else {
-				// start was pressed
-				startTracking();
-			}
-			
-		} else if(view == stopTracking) {
-			// stop was pressed
-			stopTracking();
-			
-			
-		}
-			
-	}
 	
 	/**
 	 * Start tracking the mileage
@@ -102,12 +103,14 @@ public class SimpleMileageActivity extends Activity implements OnClickListener {
 		
 		// change the start to a pause
 		startTracking.setText(R.string.pause_label);
+		startTracking.setBackgroundResource(R.drawable.btn_yellow);
 		
 		// enable the start button
 		startTracking.setEnabled(true);
 		
 		// allow to stop tracking
 		stopTracking.setEnabled(true);
+		stopTracking.setBackgroundResource(R.drawable.btn_red);
 	}
 	
 	/**
@@ -115,6 +118,7 @@ public class SimpleMileageActivity extends Activity implements OnClickListener {
 	 */
 	public void pauseTracking() {
 		startTracking.setText("Resume");
+		startTracking.setBackgroundResource(R.drawable.btn_green);
 		tracking = false;
 		
 		// TODO update the distance
@@ -140,6 +144,8 @@ public class SimpleMileageActivity extends Activity implements OnClickListener {
 		// allow new tracking
 		startTracking.setText(R.string.start_label);
 		startTracking.setEnabled(true);
+		stopTracking.setBackgroundResource(R.drawable.btn_gray);
+		startTracking.setBackgroundResource(R.drawable.btn_green);
 		
 		// allow changing the unit
 		unitValue.setEnabled(true);
@@ -150,6 +156,7 @@ public class SimpleMileageActivity extends Activity implements OnClickListener {
 	 */
 	public void resumeTracking() {
 		startTracking.setText("Pause");
+		startTracking.setBackgroundResource(R.drawable.btn_yellow);
 		tracking = true;
 		
 		// TODO update the distance

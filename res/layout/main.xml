@@ -62,8 +62,12 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:enabled="true"
-                android:text="@string/start_label" />
+                android:text="@string/start_label" 
+                android:background="@drawable/btn_green"
+                style="@style/ButtonText"
+                />
 
+            
         </TableRow>
 
         <TableRow
@@ -78,7 +82,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="@string/stop_label" />
+                android:text="@string/stop_label" 
+                android:background="@drawable/btn_gray"
+                style="@style/ButtonText"
+                />
 
         </TableRow>
     </TableLayout>
