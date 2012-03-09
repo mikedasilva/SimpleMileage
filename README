@@ -1,0 +1,10 @@
+SimpleMileage
+=============
+A simple mileage tracker app for Android 2.2+ that is designed to be easily used with the absolute minimum settings possible.
+
+The main features of this project will be:
+
+- Large, easy-to-use buttons for 'Start', 'Pause', 'Resume' and 'Stop'
+- Ability to export all your data
+- Will track the date and the distance traveled
+

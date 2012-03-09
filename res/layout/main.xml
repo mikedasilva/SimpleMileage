@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
 
-    <TableLayout
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tableLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -27,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
         </TableRow>
 
         <TableRow
@@ -39,15 +35,15 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="@string/unit_selection_label"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <Spinner
                 android:id="@+id/spinner_Unit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:entries="@array/unit_options"/>
-
+                android:layout_height="wrap_content"
+                android:entries="@array/unit_options" />
         </TableRow>
 
         <TableRow
@@ -57,17 +53,14 @@
 
             <Button
                 android:id="@+id/button_startTracking"
+                style="@style/ButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:enabled="true"
-                android:text="@string/start_label" 
                 android:background="@drawable/btn_green"
-                style="@style/ButtonText"
-                />
-
-            
+                android:enabled="true"
+                android:text="@string/start_label" />
         </TableRow>
 
         <TableRow
@@ -77,17 +70,13 @@
 
             <Button
                 android:id="@+id/button_stopTracking"
+                style="@style/ButtonText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:enabled="false"
-                android:text="@string/stop_label" 
                 android:background="@drawable/btn_gray"
-                style="@style/ButtonText"
-                />
-
+                android:enabled="false"
+                android:text="@string/stop_label" />
         </TableRow>
     </TableLayout>
-
-</LinearLayout>

@@ -26,7 +26,7 @@ public class MileageData extends SQLiteOpenHelper {
 	public static final String DISTANCE = "distance";
 	public static final String UNIT = "unit";
 	public static final String DATE = "date";
-	//public static final String STATE = "state"; // for future feature
+	//public static final String STATE = "state"; // for future feature to resume after app/phone failure
 	
 
 	/**
@@ -42,10 +42,8 @@ public class MileageData extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String sql = "CREATE TABLE "+TABLE_NAME + " (" 
 		+ _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
-		+ UNIT + " TEXT NOT NULL, "
 		+ DISTANCE + " INTEGER NOT NULL, "
 		+ DATE + " INTEGER NOT NULL "
-		//+ STATE + " TEXT NULL, "
 		+ ");";
 		
 		// execute the sql
@@ -53,9 +51,12 @@ public class MileageData extends SQLiteOpenHelper {
 
 	}
 
+	/**
+	 * Handle an upgrade
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO handle upgrading the DB
+		// TODO handle upgrading the DB and remove the DROP statement
 		db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
 		onCreate(db);
 	}
@@ -71,7 +72,6 @@ public class MileageData extends SQLiteOpenHelper {
 		
 		// gather the values needed
 		ContentValues values = new ContentValues();
-		values.put(UNIT, mileageRecord.getUnit());
 		values.put(DISTANCE, mileageRecord.getDistance());
 		values.put(DATE, mileageRecord.getDate().getTime());
 		

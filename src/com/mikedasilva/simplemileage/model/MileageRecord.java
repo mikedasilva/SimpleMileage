@@ -1,5 +1,6 @@
 package com.mikedasilva.simplemileage.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,9 +14,12 @@ public class MileageRecord {
 	protected int distance;
 	protected String unit;
 	protected Date date;
+	protected ArrayList<Double> originsLatitudes;
+	protected ArrayList<Double> originsLongitudes;
 	
 	public MileageRecord() {
-		
+		originsLatitudes = new ArrayList<Double>();
+		originsLongitudes = new ArrayList<Double>();
 	}
 
 	public int getDistance() {
@@ -42,6 +46,33 @@ public class MileageRecord {
 		this.date = date;
 	}
 	
+	/**
+	 * Add a coordinate to the list
+	 * 
+	 * @param latitude
+	 * @param longitude
+	 */
+	public void addCordinate(double latitude, double longitude) {
+		originsLatitudes.add(latitude);
+		originsLongitudes.add(longitude);
+	}
 	
+	/**
+	 * Get the starting latitude
+	 * 
+	 * @return
+	 */
+	public double getStartingLatitude() {
+		return originsLatitudes.get(0);
+	}
+	
+	/**
+	 * Get the starting longitude coordinate
+	 * 
+	 * @return
+	 */
+	public double getStartingLongitude() {
+		return originsLongitudes.get(0);
+	}
 
 }
