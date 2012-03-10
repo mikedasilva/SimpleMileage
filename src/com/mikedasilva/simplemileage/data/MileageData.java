@@ -18,7 +18,7 @@ public class MileageData extends SQLiteOpenHelper {
 	
 	// DB info
 	private static final String DATABASE_NAME = "mileage.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	// data info
 	public static final String TABLE_NAME = "mileage";
@@ -40,9 +40,10 @@ public class MileageData extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		
 		String sql = "CREATE TABLE "+TABLE_NAME + " (" 
 		+ _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
-		+ DISTANCE + " INTEGER NOT NULL, "
+		+ DISTANCE + " INTEGER, "
 		+ DATE + " INTEGER NOT NULL "
 		+ ");";
 		

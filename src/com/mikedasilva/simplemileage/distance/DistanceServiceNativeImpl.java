@@ -15,17 +15,17 @@ public class DistanceServiceNativeImpl implements DistanceService {
 			double destinationLongitude) {
 		
 		// origin location
-		Location location = new Location("");
-		location.setLatitude(originLatitude);
-		location.setLongitude(originLongitude);
-		
+		Location originLocation = new Location("");
+		originLocation.setLatitude(originLatitude);
+		originLocation.setLongitude(originLongitude);
+
 		// destination location
 		Location destinationLocation = new Location("");
 		destinationLocation.setLatitude(destinationLatitude);
 		destinationLocation.setLongitude(destinationLongitude);
 		
 		// calculate the distance between the two locations
-		float distance = location.distanceTo(destinationLocation);
+		float distance = originLocation.distanceTo(destinationLocation);
 		
 		// round the float and return
 		return Math.round(distance);

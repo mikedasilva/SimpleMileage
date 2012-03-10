@@ -74,5 +74,13 @@ public class MileageRecord {
 	public double getStartingLongitude() {
 		return originsLongitudes.get(0);
 	}
+	
+	public double getPreviousLatitude() {
+		return originsLatitudes.size() > 0 ? originsLatitudes.get(originsLatitudes.size()-1) : 0;
+	}
+	
+	public double getPreviousLongitude() {
+		return originsLongitudes.size() > 0 ? originsLongitudes.get(originsLongitudes.size()-1) : 0;
+	}
 
 }

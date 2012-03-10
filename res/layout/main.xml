@@ -43,7 +43,8 @@
                 android:id="@+id/spinner_Unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/unit_options" />
+               />
+                <!-- android:entries="@array/unit_options" /> -->
         </TableRow>
 
         <TableRow
@@ -59,8 +60,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:background="@drawable/btn_green"
-                android:enabled="true"
-                android:text="@string/start_label" />
+
+                 />
         </TableRow>
 
         <TableRow
