@@ -77,11 +77,6 @@ public class SimpleMileageActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-
-		initializeUI();
-
-		updateState();
-
 	}
 
 	// initialize all the UI components
@@ -165,6 +160,10 @@ public class SimpleMileageActivity extends Activity {
 				disableStopButton();
 			}
 		}
+		
+		// update the distance display
+		if(currentMileageRecord != null)
+			updateDistanceDriven(currentMileageRecord.getDistance());
 	}
 
 	// enable clicking on start
@@ -199,6 +198,17 @@ public class SimpleMileageActivity extends Activity {
 		stopTracking.setEnabled(false);
 		stopTracking.setBackgroundResource(R.drawable.btn_gray);
 	}
+	
+	// enable location updates from the gps
+	public void enableLocationUpdates() {
+		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 0,
+				mlocListener); // 90 seconds, 1km
+	}
+	
+	// disable location updates from the gpc
+	public void disableLocationUpdates() {
+		mlocManager.removeUpdates(mlocListener);
+	}
 
 	/**
 	 * Start tracking the mileage
@@ -218,9 +228,8 @@ public class SimpleMileageActivity extends Activity {
 		currentMileageRecord.setDistance(0);
 		currentMileageRecord.setUnit((String) unitValue.getSelectedItem());
 
-		// register for location updates
-		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				mlocListener); // 60 seconds, 1km
+		// enable gps
+		enableLocationUpdates();
 
 		// change the start to a pause
 		enablePauseButton();
@@ -242,14 +251,17 @@ public class SimpleMileageActivity extends Activity {
 		// get and add the current location
 		Location currentLocation = mlocManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		currentMileageRecord.addCordinate(currentLocation.getLatitude(),
-				currentLocation.getLongitude());
 
 		// turn off the gps
-		mlocManager.removeUpdates(mlocListener);
+		disableLocationUpdates();
+		
+		if(currentLocation != null) {
+			currentMileageRecord.addCordinate(currentLocation.getLatitude(),
+				currentLocation.getLongitude());
 
-		// just record the current location
-		updateLocation(currentLocation);
+			// just record the current location
+			updateLocation(currentLocation);
+		}
 
 	}
 
@@ -259,8 +271,8 @@ public class SimpleMileageActivity extends Activity {
 	public void stopTracking() {
 		disableStopButton();
 
-		// stop getting location updates
-		mlocManager.removeUpdates(mlocListener);
+		// disable gps
+		disableLocationUpdates();
 
 		// record the distance
 		mileageData.insert(currentMileageRecord);
@@ -288,8 +300,7 @@ public class SimpleMileageActivity extends Activity {
 		currentMileageRecord.addCordinate(0, 0);
 
 		// turn gps back on
-		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				mlocListener);
+		enableLocationUpdates();
 	}
 
 	/**
