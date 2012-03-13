@@ -16,9 +16,9 @@ public interface DistanceService {
 	 * @param destinationLatitude
 	 * @param destinationLongitude
 	 * 
-	 * @return int representing distance in meters
+	 * @return double representing distance in meters
 	 */
-	public int getDistanceTravelled(double originLatitude,
+	public double getDistanceTravelled(double originLatitude,
 			double originLongitude, double destinationLatitude,
 			double destinationLongitude);
 

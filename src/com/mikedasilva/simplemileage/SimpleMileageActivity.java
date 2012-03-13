@@ -311,7 +311,7 @@ public class SimpleMileageActivity extends Activity {
 	 * 
 	 * @param meterDistance
 	 */
-	public void updateDistanceDriven(int meterDistance) {
+	public void updateDistanceDriven(double meterDistance) {
 
 		// determine how the distance should be displayed
 		String selectedUnit = unitValue.getSelectedItem().toString();
@@ -369,7 +369,7 @@ public class SimpleMileageActivity extends Activity {
 			double longitude = loc.getLongitude();
 	
 			// calculate the distance travelled
-			int distanceTravelled = 0;
+			double distanceTravelled = 0;
 	
 			// check if distance needs to be calculated
 			if (currentMileageRecord.getPreviousLatitude() != 0

@@ -24,7 +24,7 @@ public enum UnitEnum {
 	 * @param meters
 	 * @return
 	 */
-	public double convertFromMeters(int meters) {
+	public double convertFromMeters(double meters) {
 		return meters * this.conversion;
 	}
 	

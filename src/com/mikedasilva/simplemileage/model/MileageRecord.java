@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class MileageRecord {
 	
-	protected int distance;
+	protected double distance;
 	protected String unit;
 	protected Date date;
 	protected ArrayList<Double> originsLatitudes;
@@ -22,11 +22,11 @@ public class MileageRecord {
 		originsLongitudes = new ArrayList<Double>();
 	}
 
-	public int getDistance() {
+	public double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(int distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 

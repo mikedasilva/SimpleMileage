@@ -31,11 +31,11 @@ public class DistanceServiceGoogleImpl implements DistanceService {
 	/**
 	 * Use the Google Distance API for distance in meters
 	 */
-	public int getDistanceTravelled(double originLatitude,
+	public double getDistanceTravelled(double originLatitude,
 			double originLongitude, double destinationLatitude,
 			double destinationLongitude) {
 
-		int distanceInMeters = 0;
+		double distanceInMeters = 0;
 		
 		// setup the URL that will be used for the request
 		String url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins="

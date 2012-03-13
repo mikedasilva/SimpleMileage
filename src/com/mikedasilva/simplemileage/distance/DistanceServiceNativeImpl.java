@@ -13,7 +13,7 @@ public class DistanceServiceNativeImpl implements DistanceService {
 	/**
 	 * Get the distance between the given coordinates
 	 */
-	public int getDistanceTravelled(double originLatitude,
+	public double getDistanceTravelled(double originLatitude,
 			double originLongitude, double destinationLatitude,
 			double destinationLongitude) {
 		
@@ -32,7 +32,8 @@ public class DistanceServiceNativeImpl implements DistanceService {
 		
 		// round the float and return
 		// TODO might need more here.. test cases will find that out
-		return Math.round(distance);
+		//return Math.round(distance);
+		return distance;
 
 	}
 
