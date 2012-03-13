@@ -26,7 +26,6 @@ public class MileageData extends SQLiteOpenHelper {
 	public static final String DISTANCE = "distance";
 	public static final String UNIT = "unit";
 	public static final String DATE = "date";
-	//public static final String STATE = "state"; // for future feature to resume after app/phone failure
 	
 
 	/**

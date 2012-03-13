@@ -92,11 +92,11 @@ public class DistanceServiceGoogleImpl implements DistanceService {
 			}
 
 		} catch (ClientProtocolException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // TODO properly handle
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // TODO properly handle
 		} catch (JSONException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // TODO properly handle
 		}
 
 		return distanceInMeters;

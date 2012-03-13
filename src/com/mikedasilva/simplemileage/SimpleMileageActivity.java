@@ -26,6 +26,8 @@ import com.mikedasilva.simplemileage.model.MileageRecord;
 /**
  * Main activity for the app
  * 
+ * TODO This activity is starting to get bloated.. look into best practices for keeping it lean
+ * 
  * @author mike
  * 
  */
@@ -60,9 +62,9 @@ public class SimpleMileageActivity extends Activity {
 		initializeUI();
 
 		// update the current state
-		updateState();
+		updateUIState();
 
-		// data
+		// data to keep track of
 		mileageData = new MileageData(this);
 
 		// location
@@ -137,7 +139,7 @@ public class SimpleMileageActivity extends Activity {
 	}
 
 	// update the current state of the tracker
-	public void updateState() {
+	public void updateUIState() {
 		if (tracking) {
 			// tracking - enable pause
 			enablePauseButton();
@@ -379,7 +381,7 @@ public class SimpleMileageActivity extends Activity {
 						longitude);
 			}
 	
-			// TODO look into if a UI thread is needed for the ui updates
+			// TODO look into if a UI thread is needed for the ui updates like in RCP
 			
 			
 			// TODO make thread safe
