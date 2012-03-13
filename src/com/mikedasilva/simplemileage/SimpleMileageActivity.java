@@ -249,19 +249,10 @@ public class SimpleMileageActivity extends Activity {
 		tracking = false;
 
 		// get and add the current location
-		Location currentLocation = mlocManager
-				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
+		updateWithCurrentLocation();
+		
 		// turn off the gps
 		disableLocationUpdates();
-		
-		if(currentLocation != null) {
-			currentMileageRecord.addCordinate(currentLocation.getLatitude(),
-				currentLocation.getLongitude());
-
-			// just record the current location
-			updateLocation(currentLocation);
-		}
 
 	}
 
@@ -270,11 +261,18 @@ public class SimpleMileageActivity extends Activity {
 	 */
 	public void stopTracking() {
 		disableStopButton();
+		
+		// capture current location
+		updateWithCurrentLocation();
 
+		
+		// TODO note -- the rest of this MUST execute only after a fix on the current location has been made. Therefore, this needs to be
+		// refactored with some type of callback
+		
 		// disable gps
 		disableLocationUpdates();
 
-		// record the distance
+		// persist the distance
 		mileageData.insert(currentMileageRecord);
 
 		// reset the current record
@@ -295,9 +293,12 @@ public class SimpleMileageActivity extends Activity {
 		enablePauseButton();
 
 		tracking = true;
-
+		
 		// add a location of 0 to essentially reset the starting point
 		currentMileageRecord.addCordinate(0, 0);
+		
+		// track current location
+		updateWithCurrentLocation();
 
 		// turn gps back on
 		enableLocationUpdates();
@@ -327,37 +328,70 @@ public class SimpleMileageActivity extends Activity {
 		distanceText.setText(distance);
 	}
 
+	
 	/**
-	 * 
+	 * Get and update the current location
+	 */
+	public void updateWithCurrentLocation() {
+		
+		/*
+		 * 
+		 * figure out how to include either a timer or callback of some sort before enabling this
+		 * 
+		// add a one-time listener to get the location quickly
+		OneTimeLocationListener onetimeListener = new OneTimeLocationListener();
+		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, onetimeListener);
+		mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, onetimeListener);
+		*/
+		
+		// get the current location from the last known -- this will just be used as a backup source
+		Location currentLocation = mlocManager
+				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		
+		if(currentLocation != null) {
+			updateLocation(currentLocation);
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * Update the with the given location
 	 * 
 	 * @param loc
 	 */
 	public void updateLocation(Location loc) {
-		double latitude = loc.getLatitude();
-		double longitude = loc.getLongitude();
-
-		// calculate the distance travelled
-		int distanceTravelled = 0;
-
-		// check if distance needs to be calculated
-		if (currentMileageRecord.getPreviousLatitude() != 0
-				&& currentMileageRecord.getPreviousLongitude() != 0) {
-			// call the service
-			distanceTravelled = distanceService.getDistanceTravelled(
-					currentMileageRecord.getPreviousLatitude(),
-					currentMileageRecord.getPreviousLongitude(), latitude,
-					longitude);
+		if(loc != null) {
+			double latitude = loc.getLatitude();
+			double longitude = loc.getLongitude();
+	
+			// calculate the distance travelled
+			int distanceTravelled = 0;
+	
+			// check if distance needs to be calculated
+			if (currentMileageRecord.getPreviousLatitude() != 0
+					&& currentMileageRecord.getPreviousLongitude() != 0) {
+				// call the service
+				distanceTravelled = distanceService.getDistanceTravelled(
+						currentMileageRecord.getPreviousLatitude(),
+						currentMileageRecord.getPreviousLongitude(), latitude,
+						longitude);
+			}
+	
+			// TODO look into if a UI thread is needed for the ui updates
+			
+			
+			// TODO make thread safe
+			currentMileageRecord.addCordinate(latitude, longitude);
+	
+			// update the current distance that has been travelled
+			currentMileageRecord.setDistance(currentMileageRecord.getDistance()
+					+ distanceTravelled);
+	
+			// update the UI
+			updateDistanceDriven(currentMileageRecord.getDistance());
 		}
-
-		// TODO make thread safe
-		currentMileageRecord.addCordinate(latitude, longitude);
-
-		// update the current distance that has been travelled
-		currentMileageRecord.setDistance(currentMileageRecord.getDistance()
-				+ distanceTravelled);
-
-		// update the UI
-		updateDistanceDriven(currentMileageRecord.getDistance());
 	}
 
 	/**
@@ -394,5 +428,44 @@ public class SimpleMileageActivity extends Activity {
 
 		}
 
+	}
+	
+	
+	/**
+	 * Used to get a location fix once
+	 * 
+	 * @author mike
+	 *
+	 */
+	public class OneTimeLocationListener implements LocationListener {
+
+		@Override
+		public void onLocationChanged(Location location) {
+			// update the location
+			updateLocation(location);
+			
+			// remove this listener
+			mlocManager.removeUpdates(this);
+			
+		}
+
+		@Override
+		public void onProviderDisabled(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onProviderEnabled(String arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
