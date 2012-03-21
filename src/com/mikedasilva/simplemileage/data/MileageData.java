@@ -1,7 +1,11 @@
 package com.mikedasilva.simplemileage.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -77,6 +81,24 @@ public class MileageData extends SQLiteOpenHelper {
 		
 		// do the insert
 		db.insertOrThrow(TABLE_NAME, null, values);
+	}
+	
+	public Map getRecords() {
+		HashMap<String,String> records = new HashMap();
+		
+		SQLiteDatabase db = getReadableDatabase();
+		String sql = "SELECT "+DATE+", "+DISTANCE+" FROM "+TABLE_NAME;
+		sql = "SELECT * FROM MILEAGE";
+		
+		Cursor cursor = db.rawQuery(sql, null);
+		 cursor.moveToFirst();
+	        while (cursor.isAfterLast() == false) {
+	            records.put(cursor.getString(0), Long.valueOf(cursor.getInt(1)).toString());
+	       	    cursor.moveToNext();
+	        }
+	        cursor.close();
+	        
+	        return records;
 	}
 
 }

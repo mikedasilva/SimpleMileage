@@ -8,10 +8,11 @@
     <string name="pause_label">Pause Tracking</string>
     <string name="resume_label">Resume Tracking</string>
     <string name="stop_label">Stop Tracking</string>
-    <string-array name="unit_options">
-        <item >KM</item>
-        <item >Mile</item>
-    </string-array>
+    <string name="email_label">Email Records</string>
+    
+    <string name="track_tab_label">Track Mileage</string>
+    <string name="export_tab_label">Export Data</string>
+
 
     
 	<style name="ButtonText">

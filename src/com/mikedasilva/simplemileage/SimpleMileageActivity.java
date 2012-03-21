@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.location.LocationListener;
@@ -61,6 +62,9 @@ public class SimpleMileageActivity extends Activity {
 		// initialize the UI
 		initializeUI();
 
+		// initialize the tabs
+		//initializeTabs();
+		
 		// update the current state
 		updateUIState();
 
@@ -83,6 +87,7 @@ public class SimpleMileageActivity extends Activity {
 
 	// initialize all the UI components
 	private void initializeUI() {
+		// set the UI based on the 'main' layour file
 		setContentView(R.layout.main);
 
 		// get the distance text
@@ -135,8 +140,16 @@ public class SimpleMileageActivity extends Activity {
 
 			}
 		});
+		
+		
+		
+		
+		
 
 	}
+	
+	
+
 
 	// update the current state of the tracker
 	public void updateUIState() {
